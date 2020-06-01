@@ -16,6 +16,7 @@ public class BaseTest {
     ProductPage productPage;
     BasketPage basketPage;
     MyAccountPage myAccountPage;
+    CategoryPage categoryPage;
 
     @BeforeSuite
     public void beforeSuite() {
@@ -33,6 +34,7 @@ public class BaseTest {
         productPage = new ProductPage();
         basketPage = new BasketPage();
         myAccountPage = new MyAccountPage();
+        categoryPage = new CategoryPage();
         goToUrl(Constants.baseURL);
     }
 

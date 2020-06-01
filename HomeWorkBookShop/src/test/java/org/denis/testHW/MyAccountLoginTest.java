@@ -17,9 +17,6 @@ public class MyAccountLoginTest extends BaseTest {
 
     @Test (priority = 1)
     public void loginPageSuccessfulLogin() {
-//        myAccountPage.enterUsername(usernameCorrect)
-//                .enterPassword(passwordCorrect)
-//                .clickOnLoginButton();
         myAccountPage.login(usernameCorrect, passwordCorrect);
 
         Assert.assertTrue(myAccountPage.checkLogoutButtonIsDisplayed());
@@ -27,9 +24,6 @@ public class MyAccountLoginTest extends BaseTest {
 
     @Test (priority = 2)
     public void loginWithIncorrectUsernameAndPassword() {
-//        myAccountPage.enterUsername(usernameInCorrect)
-//                .enterPassword(passwordInCorrect)
-//                .clickOnLoginButton();
         myAccountPage.login(usernameInCorrect, passwordInCorrect);
 
         Assert.assertTrue(myAccountPage.checkErrorMessageIsDisplayed()
@@ -38,9 +32,6 @@ public class MyAccountLoginTest extends BaseTest {
 
     @Test (priority = 3)
     public void loginWithCorrectUsernameAndEmptyPassword() {
-//        myAccountPage.enterUsername(usernameCorrect)
-//                .enterPassword("")
-//                .clickOnLoginButton();
         myAccountPage.login(usernameCorrect, "");
 
         Assert.assertTrue(myAccountPage.checkErrorMessageIsDisplayed()
@@ -49,9 +40,6 @@ public class MyAccountLoginTest extends BaseTest {
 
     @Test (priority = 4)
     public void loginWithIncorrectUsernameAndCorrectPassword() {
-//        myAccountPage.enterUsername("")
-//                .enterPassword(passwordCorrect)
-//                .clickOnLoginButton();
         myAccountPage.login("", passwordCorrect);
 
         Assert.assertTrue(myAccountPage.checkErrorMessageIsDisplayed()

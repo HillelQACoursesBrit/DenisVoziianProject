@@ -5,12 +5,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
-public class ShopPage {
+public class ShopPage extends AbstractPage {
     @FindBy(xpath = "//*[text()='Home']")
     WebElement buttonHome;
 
@@ -23,56 +23,68 @@ public class ShopPage {
     @FindBy(xpath = "//button[text()='Filter']")
     WebElement filterButton;
 
-    @FindBy(xpath = "//*[@class='price']/span")
-    List<WebElement> productPriceWithOutDiscount;
-
-    @FindBy(xpath = "//*[@class='price']/ins/span")
-    List<WebElement> productPriceWithDiscount;
+    @FindBy(css = ".price > *:last-child")
+    List<WebElement> productActualPrice;
 
     @FindBy(xpath = "//*[@class='product-categories']/li/a")
     List<WebElement> productCategoriesList;
 
-    @FindBy(xpath = "//*[@class='products masonry-done']/li")
-    List<WebElement> productList;
+    @FindBy(xpath = "*//a[text()='Read more']")
+    List<WebElement> readMoreLink;
+
+    @FindBy(xpath = "//*[@class='orderby']")
+    WebElement sortList;
 
     Actions action = new Actions(DriverHolder.getINSTANCE().getDriver());
 
-    public ShopPage chooseCategory(String categoryName) {
-        for (WebElement webElement : productCategoriesList) {
-            if (webElement.getText().contains(categoryName)){
-                webElement.click();
-            }
-        }
-        return new ShopPage();
+    public boolean checkSortBy(String typePriceSort) {
+        List<Integer> priceListInt = actualProductPriceList();
+        List<Integer> priceListIntSort = actualProductPriceList();
+        sortList(typePriceSort, priceListIntSort);
+        return priceListInt.equals(priceListIntSort);
     }
 
-    public int chooseRandomProduct() {
-        Random randomizer = new Random();
-        int random = randomizer.nextInt(productList.size());
-        productList.get(random).click();
-        return random;
+    public HomePage chooseSortBy(String sortType) {
+        Select select = new Select(sortList);
+        select.selectByVisibleText(sortType);
+        return new HomePage();
+    }
+
+    public CategoryPage chooseCategory(String categoryName) {
+        for (WebElement webElement : productCategoriesList) {
+            if (webElement.getText().equalsIgnoreCase(categoryName)) {
+                webElement.click();
+                break;
+            }
+        }
+        return new CategoryPage();
     }
 
     public String getCategoryName() {
-        Random randomizer = new Random();
-        return productCategoriesList.get(randomizer.nextInt(productCategoriesList.size())).getText();
+        return chooseRandomWebElementFromList(productCategoriesList).getText();
     }
 
-    public List<WebElement> actualProductPriceList() {
-        List<WebElement> allPriceList = new ArrayList<>();
-        allPriceList.addAll(productPriceWithDiscount);
-        allPriceList.addAll(productPriceWithOutDiscount);
+    public List<Integer> actualProductPriceList() {
+        List<Integer> allPriceList = new ArrayList<>();
+        allPriceList.addAll(convertPriceToInt(productActualPrice));
         return allPriceList;
+    }
+
+    public List<Integer> convertPriceToInt(List<WebElement> allPriceList) {
+        List<Integer> allIntegerPriceList = new ArrayList<>();
+        for (WebElement webElement : allPriceList) {
+            allIntegerPriceList.add(Integer.parseInt(webElement.getText()
+                    .substring(1, webElement.getText().length() - 3)));
+        }
+        return allIntegerPriceList;
     }
 
     public boolean checkPriceResultByFilter(int startPrice, int endPrice) {
         boolean conditionPrice = true;
-        List<WebElement> allPriceList = actualProductPriceList();
-        for (WebElement webElement : allPriceList) {
-            Integer actualPriceByInt = Integer.parseInt(webElement.getText()
-                    .substring(1, webElement.getText().length() - 3));
-            if (actualPriceByInt < startPrice
-                    && actualPriceByInt > endPrice) {
+        List<Integer> allPriceList = actualProductPriceList();
+        for (Integer price : allPriceList) {
+            if (price < startPrice
+                    || price > endPrice) {
                 conditionPrice = false;
                 break;
             }
@@ -108,6 +120,11 @@ public class ShopPage {
     public HomePage goToHome() {
         buttonHome.click();
         return new HomePage();
+    }
+
+    public ProductPage clickReadMore() {
+        chooseRandomWebElementFromList(readMoreLink).click();
+        return new ProductPage();
     }
 
     public ShopPage() {

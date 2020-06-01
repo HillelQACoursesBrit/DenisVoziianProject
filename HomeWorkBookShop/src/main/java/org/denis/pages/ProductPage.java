@@ -35,7 +35,7 @@ public class ProductPage {
     @FindBy(className = "woocommerce-message")
     WebElement bookAddedToBasketMessage;
 
-    @FindBy(className = "button wc-forward")
+    @FindBy(css = ".woocommerce-message a.button")
     WebElement viewBasketButton;
 
     @FindBy(className = "cartcontents")
@@ -46,6 +46,17 @@ public class ProductPage {
 
     @FindBy(id = "wpmenucartli")
     WebElement cartLink;
+
+    @FindBy(xpath = "//*[@class='posted_in']/a")
+    WebElement categoryNameTag;
+
+    @FindBy(xpath = "//*[@class='stock out-of-stock']")
+    WebElement outOfStockTag;
+
+    public boolean checkComplianceSelectedCategory(String categoryName){
+        return categoryNameTag.getText().equalsIgnoreCase(categoryName)
+                && descriptionTabText.getText().toUpperCase().contains(categoryName.toUpperCase());
+    }
 
     public BasketPage clickOnCartLink() {
         cartLink.click();
@@ -79,11 +90,6 @@ public class ProductPage {
         return this;
     }
 
-    public boolean compareQtyAdd() {
-        System.out.println(quantityInput.getText());
-        return quantityInput.getText().contains(cartQty.getText());
-    }
-
     public boolean compareDescription() {
         return descriptionTabText.getText().contains(descriptionBook.getText());
     }
@@ -94,6 +100,10 @@ public class ProductPage {
 
     public String getProductNameOnProdPage() {
         return productTitle.getText();
+    }
+
+    public boolean checkDisplayedOutOfStockTag() {
+        return outOfStockTag.isDisplayed();
     }
 
     public String getProductPriceOnBProdPage() {

@@ -5,19 +5,19 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class BasketPage {
+public class BasketPage extends AbstractPage{
     @FindBy(css = "td.product-name")
-    WebElement productNameOnBasket;
+    WebElement productName;
 
     @FindBy(css = "td.product-price")
-    WebElement productPriceOnBasket;
+    WebElement productPrice;
 
-    public String getProductNameOnBasket(){
-        return productNameOnBasket.getText();
+    public String getProductName(){
+        return productName.getText();
     }
 
-    public String getProductPriceOnBasket(){
-        return productPriceOnBasket.getText();
+    public String getProductPrice(){
+        return productPrice.getText();
     }
 
     public BasketPage() {

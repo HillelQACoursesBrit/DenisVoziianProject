@@ -6,18 +6,16 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
-import java.util.Random;
 
-
-public class HomePage {
+public class HomePage extends AbstractPage {
     @FindBy(xpath = "//*[text()='Shop']")
     WebElement shopButton;
 
     @FindBy(xpath = "//*[@class='products']")
-    List<WebElement> listArrivals;
+    List<WebElement> arrivalsList;
 
     @FindBy(xpath = "//*[@class='products']//img")
-    List<WebElement> listArrivalsImg;
+    List<WebElement> arrivalsImgList;
 
     @FindBy(xpath = "//*[text()='My Account']")
     WebElement myAccountButton;
@@ -33,18 +31,17 @@ public class HomePage {
     }
 
     public ProductPage goToProductRandom() {
-        Random randomizer = new Random();
-        listArrivalsImg.get(randomizer.nextInt(listArrivals.size())).click();
+        chooseRandomWebElementFromList(arrivalsList).click();
         return new ProductPage();
     }
 
     public ProductPage goToProduct(int index) {
-        listArrivalsImg.get(index).click();
+        arrivalsImgList.get(index).click();
         return new ProductPage();
     }
 
     public int countArrivals() {
-        return listArrivals.size();
+        return arrivalsList.size();
     }
 
     public HomePage() {

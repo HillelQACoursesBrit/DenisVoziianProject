@@ -42,6 +42,7 @@ public class HomePageTest extends BaseTest {
         productPage.clickOnAddToBasketButton();
 
         Assert.assertTrue(productPage.bookAddedToBasketMessageIsDisplayed());
+        Assert.assertTrue(productPage.viewBasketButtonIsDisplayed());
     }
 
     @Test(priority = 6)
@@ -54,9 +55,7 @@ public class HomePageTest extends BaseTest {
         productPage.clickOnAddToBasketButton()
                 .clickOnCartLink();
 
-        Assert.assertEquals(productNameOnProdPage, basketPage.getProductNameOnBasket());
-        Assert.assertEquals(productPriceOnProdPage, basketPage.getProductPriceOnBasket());
+        Assert.assertEquals(productNameOnProdPage, basketPage.getProductName());
+        Assert.assertEquals(productPriceOnProdPage, basketPage.getProductPrice());
     }
-
-
 }
