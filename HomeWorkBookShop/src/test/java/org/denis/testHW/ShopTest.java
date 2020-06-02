@@ -10,7 +10,7 @@ public class ShopTest extends BaseTest {
         homePage.goToShop();
     }
 
-    @Test (priority = 1)
+    @Test
     public void shopTestCheckFilterByPriceFunctionality() {
 
         int startPrice = 150;
@@ -21,7 +21,7 @@ public class ShopTest extends BaseTest {
         Assert.assertTrue(shopPage.checkPriceResultByFilter(startPrice, endPrice));
     }
 
-    @Test (priority = 2)
+    @Test
     public void shopTestCheckFilterByCategoryFunctionality(){
         String categoryName = shopPage.getCategoryName();
         shopPage.chooseCategory(categoryName);
@@ -30,21 +30,21 @@ public class ShopTest extends BaseTest {
         Assert.assertTrue(productPage.checkComplianceSelectedCategory(categoryName));
     }
 
-    @Test (priority = 3) //"ASC"
+    @Test //"ASC"
     public void shopTestSortingLowToHigh() {
         shopPage.chooseSortBy("Sort by price: low to high");
 
         Assert.assertTrue( shopPage.checkSortBy("ASC"));
     }
 
-    @Test (priority = 4) //"DESC"
+    @Test  //"DESC"
     public void shopTestSortingHighToLow() {
         shopPage.chooseSortBy("Sort by price: high to low");
 
         Assert.assertTrue( shopPage.checkSortBy("DESC"));
     }
 
-    @Test (priority = 5)
+    @Test
     public void shopTestReadMore() {
         shopPage.clickReadMore();
 

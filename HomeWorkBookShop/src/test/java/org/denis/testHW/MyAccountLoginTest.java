@@ -15,14 +15,14 @@ public class MyAccountLoginTest extends BaseTest {
         homePage.goToMyAccount();
     }
 
-    @Test (priority = 1)
+    @Test
     public void loginPageSuccessfulLogin() {
         myAccountPage.login(usernameCorrect, passwordCorrect);
 
         Assert.assertTrue(myAccountPage.checkLogoutButtonIsDisplayed());
     }
 
-    @Test (priority = 2)
+    @Test
     public void loginWithIncorrectUsernameAndPassword() {
         myAccountPage.login(usernameInCorrect, passwordInCorrect);
 
@@ -30,7 +30,7 @@ public class MyAccountLoginTest extends BaseTest {
                 && myAccountPage.checkLoginFormIsDisplayed());
     }
 
-    @Test (priority = 3)
+    @Test
     public void loginWithCorrectUsernameAndEmptyPassword() {
         myAccountPage.login(usernameCorrect, "");
 
@@ -38,7 +38,7 @@ public class MyAccountLoginTest extends BaseTest {
                 && myAccountPage.checkLoginFormIsDisplayed());
     }
 
-    @Test (priority = 4)
+    @Test
     public void loginWithIncorrectUsernameAndCorrectPassword() {
         myAccountPage.login("", passwordCorrect);
 
@@ -46,7 +46,7 @@ public class MyAccountLoginTest extends BaseTest {
                 && myAccountPage.checkLoginFormIsDisplayed());
     }
 
-    @Test (priority = 5)
+    @Test
     public void loginPasswordIsNotVisible(){
         Assert.assertTrue(myAccountPage.checkPasswordIsHidden(passwordInCorrect));
     }

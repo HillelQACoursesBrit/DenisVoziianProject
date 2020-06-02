@@ -5,7 +5,7 @@ import org.testng.annotations.Test;
 
 public class HomePageTest extends BaseTest {
 
-    @Test(priority = 1)
+    @Test
     public void homePageContainsOnlyThreeArrivals() {
         homePage.goToShop();
         shopPage.goToHome();
@@ -13,14 +13,14 @@ public class HomePageTest extends BaseTest {
         Assert.assertEquals(homePage.countArrivals(), 3);
     }
 
-    @Test(priority = 2)
+    @Test
     public void homePageNavigateToProductPage() {
         homePage.goToProductRandom();
 
         Assert.assertTrue(productPage.addToBasketButtonIsDisplayed());
     }
 
-    @Test(priority = 3)
+    @Test
     public void homePageDescriptionRegardingBookClickedOn() {
         homePage.goToProductRandom();
         productPage.clickOnDescriptionTab();
@@ -28,7 +28,7 @@ public class HomePageTest extends BaseTest {
         Assert.assertTrue(productPage.compareDescription());
     }
 
-    @Test(priority = 4)
+    @Test
     public void homePageReviewsRegardingBookClickedOn() {
         homePage.goToProductRandom();
         productPage.clickOnReviewsTab();
@@ -36,7 +36,7 @@ public class HomePageTest extends BaseTest {
         Assert.assertTrue(productPage.compareReviewTitleAndProductTitle());
     }
 
-    @Test(priority = 5)
+    @Test
     public void homePageAddBookToBasket() {
         homePage.goToProductRandom();
         productPage.clickOnAddToBasketButton();
@@ -45,7 +45,7 @@ public class HomePageTest extends BaseTest {
         Assert.assertTrue(productPage.viewBasketButtonIsDisplayed());
     }
 
-    @Test(priority = 6)
+    @Test
     public void homePageVerifyBasket() {
         homePage.goToProduct(1);
 

@@ -20,7 +20,7 @@ public class BaseTest {
 
     @BeforeSuite
     public void beforeSuite() {
-        DriverHolder.getINSTANCE().initDriver(DriverType.FIREFOX);
+        DriverHolder.getINSTANCE().initDriver(DriverType.CHROME);
     }
 
     protected void goToUrl(String url) {
@@ -36,11 +36,11 @@ public class BaseTest {
         myAccountPage = new MyAccountPage();
         categoryPage = new CategoryPage();
         goToUrl(Constants.baseURL);
+        DriverHolder.getINSTANCE().getDriver().manage().deleteAllCookies();
     }
 
     @AfterMethod
     public void afterMethod() {
-        DriverHolder.getINSTANCE().getDriver().manage().deleteAllCookies();
     }
 
     @AfterSuite

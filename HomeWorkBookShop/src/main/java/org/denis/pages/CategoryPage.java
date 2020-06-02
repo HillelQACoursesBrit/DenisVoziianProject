@@ -12,7 +12,7 @@ public class CategoryPage extends AbstractPage{
     List<WebElement> productList;
 
     public ProductPage chooseRandomProduct() {
-        chooseRandomWebElementFromList(productList);
+        chooseRandomWebElementFromList(productList).click();
         return new ProductPage();
     }
 

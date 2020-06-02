@@ -26,7 +26,7 @@ public class ShopPage extends AbstractPage {
     @FindBy(css = ".price > *:last-child")
     List<WebElement> productActualPrice;
 
-    @FindBy(xpath = "//*[@class='product-categories']/li/a")
+    @FindBy(css = ".product-categories a")
     List<WebElement> productCategoriesList;
 
     @FindBy(xpath = "*//a[text()='Read more']")
@@ -61,6 +61,7 @@ public class ShopPage extends AbstractPage {
     }
 
     public String getCategoryName() {
+
         return chooseRandomWebElementFromList(productCategoriesList).getText();
     }
 
